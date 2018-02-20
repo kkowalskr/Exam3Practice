@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Kenny Kowalski.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -29,6 +29,7 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 ########################################################################
 
 import rosegraphics as rg
+import math
 
 
 def main():
@@ -101,6 +102,26 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+
+    for j in range(n):
+        for k in range(j + 1):
+            center = rg.Point(point.x + radius * j - 2*radius * k,
+                              point.y -
+                              radius * (math.sqrt(3)) * j)
+            circles = rg.Circle(center, radius)
+            circles.fill_color = color
+            circles.attach_to(window)
+
+    for j in range(n):
+        for k in range(j + 1):
+            center = rg.Point(point.x - radius * j + 2*radius * k,
+                              point.y +
+                              radius * (math.sqrt(3)) * j)
+            circles = rg.Circle(center, radius)
+            circles.fill_color = color
+            circles.attach_to(window)
+
+    window.render()
 
 
 def run_test_many_hourglasses():
@@ -180,6 +201,9 @@ def many_hourglasses(window, square, m, colors):
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
 
+    for k in range(m):
+        hourglass(window, m, square.center, square.length_of_each_side,
+                  colors[k])
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
